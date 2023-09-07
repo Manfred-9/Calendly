@@ -23,6 +23,9 @@ export default function EventCard({ e }) {
   });
 
   const handleSave = async () => {
+    if (!newEvent.startDate || !newEvent.endDate) {
+      return;
+    }
     const exist = e.schedules.find((s) => s.email === auth?.currentUser?.email);
     const ref = doc(db, "events", e.id);
 
