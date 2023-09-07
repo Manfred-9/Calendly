@@ -1,14 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAZI-_OnlmHnHe2HOJJET5yIjjsAJlvMGY",
-  authDomain: "calendly-cw-5.firebaseapp.com",
-  projectId: "calendly-cw-5",
-  storageBucket: "calendly-cw-5.appspot.com",
-  messagingSenderId: "1013888036823",
-  appId: "1:1013888036823:web:a864844825031237642592"
+  apiKey: "AIzaSyB2TDKKTpQwwIsNoNhRORB3PH90pijQPRs",
+  authDomain: "test-ea257.firebaseapp.com",
+  projectId: "test-ea257",
+  storageBucket: "test-ea257.appspot.com",
+  messagingSenderId: "49486999807",
+  appId: "1:49486999807:web:becef4994206d2eeed5cca"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+
+export const db = getFirestore(app);
+
+
 export const auth = getAuth(app);

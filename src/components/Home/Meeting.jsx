@@ -46,7 +46,7 @@ export const Meeting = () => {
                     <Text fontSize='xl'color={'gray.700'}>Schedule across your team’s calendars for events you co-host with others</Text>
                 </Box>
             </GridItem>
-            <GridItem cursor={'context-menu'} colSpan={{base:'2',md:'1'}} rowSpan={{base:'4',md:'2'}}  borderRadius={"7px"} _hover={{boxShadow:"box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",backgroundColor:"white"}}>
+            <GridItem cursor ={'context-menu'} colSpan={{base:'2',md:'1'}} rowSpan={{base:'4',md:'2'}}  borderRadius={"7px"} _hover={{boxShadow:"box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",backgroundColor:"white"}}>
                 <Box display={'flex'} flexDirection={'column'} gap={4} pl='20px' pr='18' pt='20px' pb='45px'>
                     <Image src='https://i.ibb.co/489B1vm/Screenshot-2.png' w="40px" h="40px" alt='one'/>
                     <Text mr={'auto'} fontSize='xl' fontWeight={'bold'}>Round robin</Text>

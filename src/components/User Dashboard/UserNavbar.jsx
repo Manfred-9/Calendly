@@ -28,16 +28,12 @@ import { MdOutlineKeyboardArrowDown, MdOutlineLiveHelp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export  function Navbar({handleLog}) {
+export function Navbar({ handleLog }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <>
-      <Box
-        bg={useColorModeValue("white", "gray.900")}
-        px={4}
-        mx={"25rem"}
-      >
+      <Box bg={useColorModeValue("white", "gray.900")} px={4} mx={"25rem"}>
         <Flex
           h={16}
           justifyContent="space-between"
@@ -47,66 +43,22 @@ const navigate = useNavigate();
           maxW="container.lg"
           mx="auto"
         >
-          <HStack spacing={8} alignItems={"center"}>
-            <Box>
-              <Link to={"/"}>
-                <Image
-                  size={""}
-                  borderRadius="full"
-                  boxSize="50px"
-                  src={
-                    "https://assets.calendly.com/packs/frontend/media/logo-square-cd364a3c33976d32792a.png"
-                  }
-                />
-              </Link>
-            </Box>
-          </HStack>
-
           <Flex alignItems={"center"}>
             <HStack
               as={"nav"}
               marginLeft={"10rem"}
               spacing={4}
-              // display={{ base: "none", md: "flex" }}
             >
               <Link to={"/userevent/userhome"}>
                 <Button bg={"none"} fontWeight={"semibold"}>
                   Home
                 </Button>
               </Link>
-              <Link to={"/userevent/userhome/availability"}>
+              <Link to={"/userevent/userhome/calendar"}>
                 <Button bg={"none"} fontWeight={"semibold"}>
-                  Availabilty
+                  Calendar
                 </Button>
               </Link>
-              <Button bg={"none"} fontWeight={"semibold"}>
-                Integration
-              </Button>
-              <Button
-                bg={"none"}
-                fontWeight={"semibold"}
-                rightIcon={<MdOutlineKeyboardArrowDown />}
-              >
-                <Menu>
-                  <MenuButton bg={"none"} fontWeight={"semibold"}>
-                    Help
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>
-                      <Box mr={4}>
-                        <BsBoxArrowUpRight />
-                      </Box>
-                      Help Center
-                    </MenuItem>
-                    <MenuItem>
-                      <Box mr={4}>
-                        <MdOutlineLiveHelp />
-                      </Box>
-                      Chat With Us
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Button>
             </HStack>
             <Menu>
               <MenuButton
@@ -116,9 +68,9 @@ const navigate = useNavigate();
                 cursor={"pointer"}
                 minW={0}
               >
-                <Flex marginLeft={8}>
+                <Flex marginLeft={500}>
                   <Avatar size={"sm"} src={""} />
-                  <Box marginLeft={2}>
+                  <Box marginLeft={0}>
                     {" "}
                     <Button
                       bg={"none"}
@@ -129,59 +81,23 @@ const navigate = useNavigate();
                   </Box>
                 </Flex>
               </MenuButton>
-              <MenuList>
+              <MenuList marginLeft={500}>
                 <MenuItem>
                   {" "}
-                  <Box marginRight={4}>
+                  <Box marginRight={1}>
                     {" "}
                     <FaUserAlt size={14} />{" "}
                   </Box>{" "}
                   Account Settings
                 </MenuItem>
-                <MenuItem>
-                  <Box marginRight={4}>
-                    <ImCreditCard size={15} />
-                  </Box>
-                  Billing
-                </MenuItem>
-                <MenuItem>
-                  <Box marginRight={3}>
-                    <AiTwotoneCalendar size={18} />
-                  </Box>
-                  Calender Connections
-                </MenuItem>
-                <MenuItem>
-                  <Box marginRight={3}>
-                    <MdPeople size={18} />
-                  </Box>
-                  Admin Management
-                </MenuItem>
-                <MenuItem>
-                  <Box marginRight={3}>
-                    <BsFillLockFill size={18} />
-                  </Box>
-                  Organisation Settings
-                </MenuItem>
-                <MenuItem>
-                  <Box marginRight={3}>
-                    <BsLink45Deg size={18} />
-                  </Box>
-                  Share Your Link
-                </MenuItem>
-
-                <MenuItem>
-                  <Box marginRight={3}>
-                    <AiOutlineAppstore size={18} />
-                  </Box>
-                  Apps
-                </MenuItem>
-
                 <MenuDivider />
-                <MenuItem onClick={()=>{
-                  handleLog();
-                  navigate('/');
-                }}>
-                  <Box marginRight={3}>
+                <MenuItem
+                  onClick={() => {
+                    handleLog();
+                    navigate("/");
+                  }}
+                >
+                  <Box marginRight={1}>
                     <IoIosLogOut size={18} />
                   </Box>
                   LogOut
@@ -190,16 +106,6 @@ const navigate = useNavigate();
             </Menu>
           </Flex>
         </Flex>
-
-        {/* {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null} */}
       </Box>
       <hr />
     </>

@@ -22,12 +22,12 @@ export const MainRoutes = () => {
      <Route path='/teams' element={<Teams/>}/>
      <Route path='/customer' element={<Customers/>}/>
      <Route path='/userevent/userhome' element={<UserHome/>}/>
-     <Route path='/userevent/userhome/eventtype' element={<EventTypes/>}/>
+     <Route path='/userevent/userhome/yourevent' element={<EventTypes/>}/>
      <Route path='/userevent/userhome/scheduledevents' element={<ScheduledEvents/>}/>
      <Route path='/userevent/userhome/routingforms' element={<RoutingForms/>}/>
      <Route path='/userevent/userhome/workflows' element={<Workflows/>}/>
      <Route path='/userevent/userhome/eventforms' element={<EventForm/>}/>
-     <Route path='/userevent/userhome/availability' element={<Calendar2/>}/>
+     <Route path='/userevent/userhome/calendar' element={<Calendar2/>}/>
      {/* <Route path='/userevent/availablity/calender' element={<Calendar2/>}/> */}
    </Routes>    
     </div>

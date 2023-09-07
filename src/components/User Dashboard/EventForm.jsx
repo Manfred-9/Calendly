@@ -1,78 +1,146 @@
 import {
   Box,
   Button,
-  Center,
-  Checkbox,
   Flex,
   Heading,
   Switch,
   Text,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
   Textarea,
-  Select,
+
 } from "@chakra-ui/react";
-import React from "react";
+import { collection, addDoc } from "firebase/firestore"; 
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { db } from "../../firebase/Firebase";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 const EventForm = () => {
+  const [values,setValues] = useState({
+    eventName : "",
+    location : "",
+    desc : "",
+    users : [{
+      name : 1,
+      value: ""
+    }]
+  })
+
+
+  const [newEvent , setNewEvent ] = useState({startDate:"",endDate:"",longTime:""});
+
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const handleChangeUsers = (e,name) => {
+      setValues({
+        ...values,
+        users : values.users.map((i) => {
+              if(i.name.toString() === `${name}`) {
+                  i.value = e.target.value
+              }
+              return i
+        })
+      })
+  }
+
+  
+
+  const handleAddInput = () => {
+    
+    setValues({
+      ...values,
+      users : [...values.users, {
+        name : values.users.length + 1,
+        value : ""
+      }]
+    })
+  }
+
+  const handleAddEvent = async () => {
+    const data = {
+      ...values,
+      ...newEvent,
+      users : values.users.map(v => v.value),
+      schedules : []
+    }
+    const docRef = await addDoc(collection(db, "events"), data);
+    navigate("/userevent/userhome/yourevent")
+  }
+
   return (
     <Box mx={"25rem"} p={4}>
       <Flex justifyContent={"space-between"} my={8}>
-        <Button
-          variant={"outline"}
-          borderColor={"blue.500"}
-          rounded={50}
-          color={"blue.500"}
-        >
-          {" "}
-          {"< Back"}
-        </Button>
-        <Heading fontWeight={"normal"}>Add Event Type</Heading>
-        <Flex gap={2}>
-          <Text>Your Event Type is</Text>
-          <Switch id="email-alerts" />
-        </Flex>
+
+        <Heading fontWeight={"normal"}>New Event</Heading>
+{        <Flex gap={2}>
+
+        </Flex>}
       </Flex>
       <hr />
       <FormControl border={"1px solid"} p={8}>
-        <Flex my={4} justifyContent={"space-between"}>
-          <Box>
-            <Heading as={"h4"} fontWeight={"medium"}>
-              What event is this?
-            </Heading>
-          </Box>
-          <Flex gap={4}>
-            <Button rounded={"full"}>Cancel</Button>
-            <Button rounded={"full"} color={"white"} bg={"blue.500"}>
-              Next
-            </Button>
-          </Flex>
-        </Flex>
+
         <hr />
         <FormLabel>Event Name</FormLabel>
-        <Input type="email" isRequired />
-        <FormHelperText>We'll never share your email.</FormHelperText>
+        <Input onChange={handleChange} type="text" isRequired name="eventName" />
+       
+        <FormLabel>Time</FormLabel>
+
+        <DatePicker showTimeSelect timeIntervals={30} dateFormat="MMMM d, yyyy h:mm aa" className="time-input"  placeholderText='Start Date' selected={newEvent.startDate} onChange={(startDate) => setNewEvent( {...newEvent, startDate }) } />
+        <DatePicker className="time-input" showTimeSelect timeIntervals={30} dateFormat="MMMM d, yyyy h:mm aa" placeholderText='End Date' selected={newEvent.endDate} onChange={(endDate) => setNewEvent( {...newEvent, endDate }) } />
+        <input className="time-input" style={{marginBottom : 0}} type={"text"}  placeholder='Long time' value={newEvent.longTime}  onChange={(e) => setNewEvent( {...newEvent, longTime : e.target.value }) } />
+
         <FormLabel>Location</FormLabel>
-        <Input type="text" isRequired />
-        <FormLabel>Event Type</FormLabel>
-        <Select placeholder="Select event Type">
-          <option value="option1">One-on-One</option>
-          <option value="option2">Group</option>
-          <option value="option3">Collective</option>
-        </Select>
+        <Input onChange={handleChange}  type="text" isRequired name="location" />
+        
         <FormLabel>Description/Instructions</FormLabel>
-        <Textarea type="textBox" isRequired minHeight={40} />
-        <FormLabel>Event Link</FormLabel>
-        <Input type="text" isRequired />
+        <Textarea onChange={handleChange}  type="textBox" isRequired minHeight={40} name="desc" />
+        <FormLabel>Users email</FormLabel>
+        {
+          values.users.map((v) => {
+            return <Input key={v.name} type="text" onChange={(e) => handleChangeUsers(e,v.name) } style={{
+              marginBottom : 10
+            }} isRequired name={v.name}  />
+          })
+        }
+        <div style={{
+          display : "flex",
+          justifyContent : "center",
+          margin : "20px 0px",
+          cursor : "pointer"
+        }}>
+          <div style={{
+            width : 40,
+            height :36,
+            borderRadius : 5,
+            backgroundColor : "blue",
+            display : "flex",
+            alignItems : "center",
+            justifyContent : "center"
+          }}
+          onClick={handleAddInput}
+          ><b style={{
+            fontSize : 24,
+            color : "white",
+            marginBottom: 5
+          }}>+</b></div>
+        </div>
         <hr />
 
         <Flex gap={4} my={4} justifyContent={"right"}>
           <Button rounded={"full"}>Cancel</Button>
-          <Button color={"white"} rounded={"full"} bg={"blue.500"}>
-            Next
+          <Button color={"white"} rounded={"full"} bg={"blue.500"} onClick={handleAddEvent} >
+            Save
           </Button>
         </Flex>
       </FormControl>
