@@ -14,23 +14,16 @@ import {
 import { Link } from "react-router-dom";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { RiSettings2Fill } from "react-icons/ri";
-import { BiLink, BiCodeAlt } from "react-icons/bi";
+
 import EventCard from "./EventCard";
 import { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  getDocs,
-} from "firebase/firestore";
-import { db } from "../../firebase/Firebase.js";
+import { collection, getDocs } from "firebase/firestore";
+import { useToast } from "@chakra-ui/react";
+import { auth, db } from "../../firebase/Firebase.js";
 
 const EventTypes = () => {
   const [events, setEvents] = useState([]);
-
-  console.log(events);
+  const toast = useToast();
 
   useEffect(() => {
     (async () => {
@@ -71,9 +64,11 @@ const EventTypes = () => {
       </Flex>
       <hr />
       <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-        {events.map((e) => (
-          <EventCard key={e.id} e={e} />
-        ))}
+        {events
+          .filter((t) => t?.users?.includes(auth?.currentUser.email))
+          .map((e) => (
+            <EventCard key={e.id} e={e} />
+          ))}
       </Grid>
     </Box>
   );

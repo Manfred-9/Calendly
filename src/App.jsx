@@ -1,27 +1,38 @@
-import { useState } from 'react'
-import './App.css'
-import { Navbar} from './components/Navbar/Navbar'
-import {Home} from './pages/Home'
-import { MainRoutes } from './pages/MainRoutes'
-import UserDashboard from './pages/UserDashboard'
-import { Dashboard } from './components/User Dashboard/Dashboard'
-import {Navbar as UserNavbar} from './components/User Dashboard/UserNavbar'
-import Footer from './components/Footer/Footer'
+import { useEffect, useState } from "react";
+import "./App.css";
+import { Navbar } from "./components/Navbar/Navbar";
+import { Home } from "./pages/Home";
+import { MainRoutes } from "./pages/MainRoutes";
+import UserDashboard from "./pages/UserDashboard";
+import { Dashboard } from "./components/User Dashboard/Dashboard";
+import { Navbar as UserNavbar } from "./components/User Dashboard/UserNavbar";
+import Footer from "./components/Footer/Footer";
+import { auth } from "./firebase/Firebase";
 function App() {
-  const[log,setLog]= useState(false);
-  const handleLog=()=>{
+  const [log, setLog] = useState(false);
+  const [user, setUser] = useState();
+  const handleLog = () => {
     setLog(!log);
-  }
+  };
+  useEffect(() => {
+    auth.onAuthStateChanged(() => {
+      setUser(auth.currentUser);
+    });
+    return () => {};
+  }, []);
   return (
     <div className="App">
-   {log?<UserNavbar handleLog={handleLog}/>:<Navbar handleLog={handleLog}/>}
-   {log?<Dashboard/>:null}
-   <MainRoutes/>
+      {user ? (
+        <UserNavbar handleLog={handleLog} />
+      ) : (
+        <Navbar handleLog={handleLog} />
+      )}
+      {user ? <Dashboard /> : null}
+      <MainRoutes />
 
-   {!log?<Footer/>:null}
-   
+      {!user ? <Footer /> : null}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

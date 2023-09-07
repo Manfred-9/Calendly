@@ -38,7 +38,7 @@ import {
 import SignupBox from "../Auth/SignupBox";
 import Product from "../Product/Product";
 import Resources from "../Resources/Resources";
-export const Navbar = ({handleLog}) => {
+export const Navbar = ({ handleLog }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -47,7 +47,6 @@ export const Navbar = ({handleLog}) => {
   const handleScroll = () => {
     if (window.scrollY >= 104) {
       setGoingUp(true);
-    
     } else {
       setGoingUp(false);
     }
@@ -57,8 +56,8 @@ export const Navbar = ({handleLog}) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
-       handleLog();
-       navigate('/userevent/userhome');
+        handleLog();
+        navigate("/userevent/userhome");
       })
       .catch((err) => {
         console.log(err);
@@ -80,31 +79,70 @@ export const Navbar = ({handleLog}) => {
 
           <DrawerBody>
             {/* <Input placeholder='Type here...' /> */}
-            <VStack fontWeight={"bold"} align={'left'} >
-              <Link to='/individuals'> <Text cursor={'pointer'} pl={'18px'}>Individuals</Text></Link>
+            {/* <VStack fontWeight={"bold"} align={"left"}>
+              <Link to="/individuals">
+                {" "}
+                <Text cursor={"pointer"} pl={"18px"}>
+                  Individuals
+                </Text>
+              </Link>
               <Divider />
-              <Link to='/teams'> <Text cursor={'pointer'} pl={'18px'}>Teams</Text></Link>
+              <Link to="/teams">
+                {" "}
+                <Text cursor={"pointer"} pl={"18px"}>
+                  Teams
+                </Text>
+              </Link>
               <Divider />
-              <Link to='/enterprise'> <Text cursor={'pointer'} pl={'18px'}>Enterprise</Text></Link>
+              <Link to="/enterprise">
+                {" "}
+                <Text cursor={"pointer"} pl={"18px"}>
+                  Enterprise
+                </Text>
+              </Link>
               <Divider />
-              <Link to='/pricing'> <Text cursor={'pointer'} pl={'18px'}>Pricing</Text></Link>
-              <Accordion allowToggle width={"100%"} bg={'white'}  outline={'none'}>
+              <Link to="/pricing">
+                {" "}
+                <Text cursor={"pointer"} pl={"18px"}>
+                  Pricing
+                </Text>
+              </Link>
+              <Accordion
+                allowToggle
+                width={"100%"}
+                bg={"white"}
+                outline={"none"}
+              >
                 <AccordionItem>
-                    <AccordionButton>
-                    <Box flex='1' textAlign='left' fontWeight={'bold'} pl={'auto'}>
-                        <Text>Resources</Text>
-                         </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  <AccordionPanel pb={4} align={'center'}>
-              <Link to='/about'> <Text cursor={'pointer'} pl={'18px'}>About</Text></Link>
+                  <AccordionButton>
+                    <Box
+                      flex="1"
+                      textAlign="left"
+                      fontWeight={"bold"}
+                      pl={"auto"}
+                    >
+                      <Text>Resources</Text>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4} align={"center"}>
+                    <Link to="/about">
+                      {" "}
+                      <Text cursor={"pointer"} pl={"18px"}>
+                        About
+                      </Text>
+                    </Link>
                     <br />
-              <Link to='/customer'> <Text cursor={'pointer'} pl={'18px'}>Customer</Text></Link>
+                    <Link to="/customer">
+                      {" "}
+                      <Text cursor={"pointer"} pl={"18px"}>
+                        Customer
+                      </Text>
+                    </Link>
                   </AccordionPanel>
-                  
                 </AccordionItem>
               </Accordion>
-            </VStack>
+            </VStack> */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -135,23 +173,13 @@ export const Navbar = ({handleLog}) => {
           cursor="pointer"
           display={{ base: "none", sm: "block", md: "block" }}
         >
-          <Link to='/'>
-          <Image
-            src=""
-            h="40px"
-            w="auto"
-            alt=""
-          />
+          <Link to="/">
+            <Image src="" h="40px" w="auto" alt="" />
           </Link>
         </Box>
         <Box display={{ base: "block", sm: "none" }}>
-          <Link to='/'>
-          <Image
-            src=""
-            h={"40px"}
-            w={"40px"}
-            alt="logo"
-          />
+          <Link to="/">
+            <Image src="" h={"40px"} w={"40px"} alt="logo" />
           </Link>
         </Box>
         <Spacer />
@@ -161,36 +189,52 @@ export const Navbar = ({handleLog}) => {
           spacing={10}
           w={{ md: "85%", lg: "84%" }}
         >
-          <Link to='/individuals'>
-          <Text fontSize="1rem" fontWeight="700" _hover={{ color: "#006BFF" }}>
-            Individuals
-          </Text>
+          {/* <Link to="/individuals">
+            <Text
+              fontSize="1rem"
+              fontWeight="700"
+              _hover={{ color: "#006BFF" }}
+            >
+              Individuals
+            </Text>
           </Link>
-          <Link to='/teams'>
-          <Text fontSize="1rem" fontWeight="700" _hover={{ color: "#006BFF" }}>
-            Teams
-          </Text>
+          <Link to="/teams">
+            <Text
+              fontSize="1rem"
+              fontWeight="700"
+              _hover={{ color: "#006BFF" }}
+            >
+              Teams
+            </Text>
           </Link>
-          <Link to='/enterprise'>
-          <Text fontSize="1rem" fontWeight="700" _hover={{ color: "#006BFF" }}>
-            Enterprise
-          </Text>
+          <Link to="/enterprise">
+            <Text
+              fontSize="1rem"
+              fontWeight="700"
+              _hover={{ color: "#006BFF" }}
+            >
+              Enterprise
+            </Text>
           </Link>
-          <Link to='/product'>
-          <Text fontSize={"1rem"} >
-            <Product/>
-          </Text>
+          <Link to="/product">
+            <Text fontSize={"1rem"}>
+              <Product />
+            </Text>
           </Link>
-          <Link to='/pricing'>
-          <Text fontSize="1rem" fontWeight="700" _hover={{ color: "#006BFF" }}>
-            Pricing
-          </Text>
+          <Link to="/pricing">
+            <Text
+              fontSize="1rem"
+              fontWeight="700"
+              _hover={{ color: "#006BFF" }}
+            >
+              Pricing
+            </Text>
           </Link>
-          <Link to='/resources'>
-          <Text >
-            <Resources/>
-          </Text>
-          </Link> 
+          <Link to="/resources">
+            <Text>
+              <Resources />
+            </Text>
+          </Link> */}
         </HStack>
         <Spacer />
         <Box>

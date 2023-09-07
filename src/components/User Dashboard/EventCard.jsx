@@ -1,31 +1,53 @@
 import {
-  Heading,
-  Avatar,
   Box,
-  Center,
-  Text,
-  Stack,
   Button,
-  Link,
-  Badge,
-  useColorModeValue,
-  Checkbox,
+  Center,
   Flex,
-
+  Heading,
+  Stack,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { BiCopy, BiNote } from "react-icons/bi";
 
+import { FormLabel } from "@chakra-ui/react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
-import { FormControl, FormLabel } from "@chakra-ui/react";
+import toDateTime from "../../utils/date";
+import { auth } from "../../firebase/Firebase";
 
-export default function EventCard({e}) {
+export default function EventCard({ e }) {
   const [newEvent, setNewEvent] = useState({
     startDate: "",
     endDate: "",
-    longTime: "",
   });
+
+  const handleSave = async () => {
+    const exist = e.schedules.find((s) => s.email === auth?.currentUser?.email);
+    const ref = doc(db, "events", e.id);
+
+    if (!exist) {
+      await setDoc(ref, {
+        ...e,
+        schedules: [
+          ...e?.schedules,
+          {
+            email: auth?.currentUser?.email,
+            ...newEvent,
+          },
+        ],
+      });
+    } else {
+      await setDoc(ref, {
+        ...e,
+        schedules: e?.schedules?.map((s) => {
+          if (s.email === auth?.currentUser?.email) {
+          }
+          return e;
+        }),
+      });
+    }
+  };
 
   return (
     <Center py={6}>
@@ -42,25 +64,35 @@ export default function EventCard({e}) {
         <Flex direction={"row"} justifyContent={"space-between"}></Flex>
         <Box mb={5}>
           <Heading fontSize={"xl"} fontWeight={600}>
-           {}
+            {}
           </Heading>
           <Text fontWeight={400} color={"gray.500"} mb={4} mt={4}>
-            30 mins, One-on-One
+            Event name : {e.eventName}
           </Text>
           <Text fontWeight={400} color={"gray.500"} mb={4}>
-            30 mins, One-on-One
+            Location : {e.location}
           </Text>
           <Text fontWeight={400} color={"gray.500"} mb={4}>
-            30 mins, One-on-One
+            Description : {e.location}
+          </Text>
+          <Text fontWeight={400} color={"gray.500"} mb={4}>
+            Start date : {toDateTime(e.startDate.seconds).toLocaleString()}
+          </Text>
+          <Text fontWeight={400} color={"gray.500"} mb={4}>
+            End date : {toDateTime(e.endDate.seconds).toLocaleString()}
           </Text>
 
-          <FormLabel>Choose time</FormLabel>
+          <Text fontWeight={400} color={"gray.500"} mb={4}>
+            Long metting time : {e.longTime}p
+          </Text>
+
+          <FormLabel>Choose time to meeting</FormLabel>
           <DatePicker
             showTimeSelect
             timeIntervals={30}
             dateFormat="MMMM d, yyyy h:mm aa"
             className="time-input"
-            placeholderText="Start Date"
+            placeholderText="Start time"
             selected={newEvent.startDate}
             onChange={(startDate) => setNewEvent({ ...newEvent, startDate })}
           />
@@ -69,7 +101,7 @@ export default function EventCard({e}) {
             showTimeSelect
             timeIntervals={30}
             dateFormat="MMMM d, yyyy h:mm aa"
-            placeholderText="End Date"
+            placeholderText="End time"
             selected={newEvent.endDate}
             onChange={(endDate) => setNewEvent({ ...newEvent, endDate })}
           />
@@ -77,6 +109,7 @@ export default function EventCard({e}) {
 
         <Stack direction={"row"} spacing={4}>
           <Button
+            onClick={handleSave}
             flex={1}
             fontSize={"sm"}
             rounded={"full"}

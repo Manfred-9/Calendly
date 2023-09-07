@@ -27,6 +27,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineKeyboardArrowDown, MdOutlineLiveHelp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/Firebase";
 
 export function Navbar({ handleLog }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,11 +45,7 @@ export function Navbar({ handleLog }) {
           mx="auto"
         >
           <Flex alignItems={"center"}>
-            <HStack
-              as={"nav"}
-              marginLeft={"10rem"}
-              spacing={4}
-            >
+            <HStack as={"nav"} marginLeft={"10rem"} spacing={4}>
               <Link to={"/userevent/userhome"}>
                 <Button bg={"none"} fontWeight={"semibold"}>
                   Home
@@ -92,8 +89,9 @@ export function Navbar({ handleLog }) {
                 </MenuItem>
                 <MenuDivider />
                 <MenuItem
-                  onClick={() => {
+                  onClick={async () => {
                     handleLog();
+                    await auth.signOut();
                     navigate("/");
                   }}
                 >

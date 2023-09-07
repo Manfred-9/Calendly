@@ -1,6 +1,4 @@
-import {
-  ArrowLeftIcon,
-} from "@chakra-ui/icons";
+import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Image, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -50,7 +48,8 @@ const CreateEvent = () => {
               </Box>
             </Box>
             <Link to="/addone">
-            <button className={styles.createbtn}>Create</button></Link>
+              <button className={styles.createbtn}>Create</button>
+            </Link>
           </Box>
         </Flex>
 
