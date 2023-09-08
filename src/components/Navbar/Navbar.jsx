@@ -36,7 +36,6 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import SignupBox from "../Auth/SignupBox";
-import Resources from "../Resources/Resources";
 export const Navbar = ({ handleLog }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,74 +74,6 @@ export const Navbar = ({ handleLog }) => {
         <DrawerContent>
           <DrawerCloseButton onClick={() => setOpend(false)} />
           <DrawerHeader>Wellcome to Calendly</DrawerHeader>
-
-          <DrawerBody>
-            {/* <Input placeholder='Type here...' /> */}
-            {/* <VStack fontWeight={"bold"} align={"left"}>
-              <Link to="/individuals">
-                {" "}
-                <Text cursor={"pointer"} pl={"18px"}>
-                  Individuals
-                </Text>
-              </Link>
-              <Divider />
-              <Link to="/teams">
-                {" "}
-                <Text cursor={"pointer"} pl={"18px"}>
-                  Teams
-                </Text>
-              </Link>
-              <Divider />
-              <Link to="/enterprise">
-                {" "}
-                <Text cursor={"pointer"} pl={"18px"}>
-                  Enterprise
-                </Text>
-              </Link>
-              <Divider />
-              <Link to="/pricing">
-                {" "}
-                <Text cursor={"pointer"} pl={"18px"}>
-                  Pricing
-                </Text>
-              </Link>
-              <Accordion
-                allowToggle
-                width={"100%"}
-                bg={"white"}
-                outline={"none"}
-              >
-                <AccordionItem>
-                  <AccordionButton>
-                    <Box
-                      flex="1"
-                      textAlign="left"
-                      fontWeight={"bold"}
-                      pl={"auto"}
-                    >
-                      <Text>Resources</Text>
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                  <AccordionPanel pb={4} align={"center"}>
-                    <Link to="/about">
-                      {" "}
-                      <Text cursor={"pointer"} pl={"18px"}>
-                        About
-                      </Text>
-                    </Link>
-                    <br />
-                    <Link to="/customer">
-                      {" "}
-                      <Text cursor={"pointer"} pl={"18px"}>
-                        Customer
-                      </Text>
-                    </Link>
-                  </AccordionPanel>
-                </AccordionItem>
-              </Accordion>
-            </VStack> */}
-          </DrawerBody>
         </DrawerContent>
       </Drawer>
       <Modal isOpen={isOpen} border={"1px solid red"}>
@@ -187,8 +118,7 @@ export const Navbar = ({ handleLog }) => {
           justifyContent="center"
           spacing={10}
           w={{ md: "85%", lg: "84%" }}
-        >
-        </HStack>
+        ></HStack>
         <Spacer />
         <Box>
           <Button
