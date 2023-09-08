@@ -36,7 +36,6 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import SignupBox from "../Auth/SignupBox";
-import Product from "../Product/Product";
 import Resources from "../Resources/Resources";
 export const Navbar = ({ handleLog }) => {
   const navigate = useNavigate();
@@ -189,52 +188,6 @@ export const Navbar = ({ handleLog }) => {
           spacing={10}
           w={{ md: "85%", lg: "84%" }}
         >
-          {/* <Link to="/individuals">
-            <Text
-              fontSize="1rem"
-              fontWeight="700"
-              _hover={{ color: "#006BFF" }}
-            >
-              Individuals
-            </Text>
-          </Link>
-          <Link to="/teams">
-            <Text
-              fontSize="1rem"
-              fontWeight="700"
-              _hover={{ color: "#006BFF" }}
-            >
-              Teams
-            </Text>
-          </Link>
-          <Link to="/enterprise">
-            <Text
-              fontSize="1rem"
-              fontWeight="700"
-              _hover={{ color: "#006BFF" }}
-            >
-              Enterprise
-            </Text>
-          </Link>
-          <Link to="/product">
-            <Text fontSize={"1rem"}>
-              <Product />
-            </Text>
-          </Link>
-          <Link to="/pricing">
-            <Text
-              fontSize="1rem"
-              fontWeight="700"
-              _hover={{ color: "#006BFF" }}
-            >
-              Pricing
-            </Text>
-          </Link>
-          <Link to="/resources">
-            <Text>
-              <Resources />
-            </Text>
-          </Link> */}
         </HStack>
         <Spacer />
         <Box>
