@@ -1,7 +1,7 @@
 function toDateTime(secs) {
-  var t = new Date(1970, 0, 1); // Epoch
-  t.setSeconds(secs);
-  return t;
+  var timestamp = secs;
+  var date = new Date(timestamp * 1000);
+  return date;
 }
 
 export default toDateTime;

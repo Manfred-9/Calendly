@@ -30,30 +30,44 @@ const events = [
   },
 ];
 
+import { collection, getDocs } from "firebase/firestore";
+
+import { auth, db } from "../../firebase/Firebase.js";
+import toDateTime from "../../utils/date";
+
 const Calendar2 = () => {
-  const [newEvent, setNewEvent] = useState({
-    title: "",
-    startDate: "",
-    endDate: "",
-    startTime: "",
-    endTime: "",
-  });
-  const [allEvents, setAllEvents] = useState(events);
-
-  console.log("all", allEvents);
-
-  function handleAddEvent() {
-    setAllEvents([...allEvents, newEvent]);
-    console.log("new", newEvent);
-  }
-
-  function handleInputReset() {
-    setNewEvent({ title: "", startDate: "", endDate: "" });
-  }
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    handleInputReset();
-  }, [allEvents]);
+    (async () => {
+      const querySnapshot = await getDocs(collection(db, "events"));
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+
+      const dataFilter = data.filter(
+        (d) => d?.email === auth.currentUser.email && d?.schedules?.length > 0
+      );
+
+      const dataEvents = [];
+      for (let d of dataFilter) {
+        d?.schedules.forEach((s) => {
+          dataEvents.push({
+            eventName: d.eventName,
+            ...s,
+            startDate: toDateTime(s.startDate.seconds),
+            endDate: toDateTime(s.endDate.seconds),
+            title: d.eventName,
+          });
+        });
+      }
+      setEvents(dataEvents);
+    })();
+  }, []);
 
   return (
     <div className="App">
@@ -62,7 +76,7 @@ const Calendar2 = () => {
         <div className="calendar">
           <Calendar
             localizer={localizer}
-            events={allEvents}
+            events={events}
             startAccessor="startDate"
             endAccessor="endDate"
           />

@@ -8,13 +8,15 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 import { FormLabel } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toDateTime from "../../utils/date";
-import { auth } from "../../firebase/Firebase";
+import { auth, db } from "../../firebase/Firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function EventCard({ e }) {
   const [newEvent, setNewEvent] = useState({
@@ -22,13 +24,15 @@ export default function EventCard({ e }) {
     endDate: "",
   });
 
+  const toast = useToast();
+
   const handleSave = async () => {
     if (!newEvent.startDate || !newEvent.endDate) {
       return;
     }
     const exist = e.schedules.find((s) => s.email === auth?.currentUser?.email);
     const ref = doc(db, "events", e.id);
-
+    console.log(exist);
     if (!exist) {
       await setDoc(ref, {
         ...e,
@@ -45,12 +49,33 @@ export default function EventCard({ e }) {
         ...e,
         schedules: e?.schedules?.map((s) => {
           if (s.email === auth?.currentUser?.email) {
+            s.startDate = newEvent.startDate;
+            s.endDate = newEvent.endDate;
           }
-          return e;
+          return s;
         }),
       });
     }
+
+    toast({
+      title: "Save time successfully.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top-center",
+    });
   };
+
+  useEffect(() => {
+    const exist = e.schedules.find((s) => s.email === auth?.currentUser?.email);
+
+    if (exist) {
+      setNewEvent({
+        startDate: toDateTime(exist.startDate.seconds),
+        endDate: toDateTime(exist.endDate.seconds),
+      });
+    }
+  }, []);
 
   return (
     <Center py={6}>
