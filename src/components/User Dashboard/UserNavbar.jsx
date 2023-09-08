@@ -1,32 +1,22 @@
-import { React } from "react";
 import {
-  Box,
-  Flex,
   Avatar,
-  HStack,
-  IconButton,
+  Box,
   Button,
+  Flex,
+  HStack,
   Menu,
   MenuButton,
-  MenuList,
-  MenuItem,
   MenuDivider,
-  useDisclosure,
+  MenuItem,
+  MenuList,
   useColorModeValue,
-  Stack,
-  Text,
-  Image,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { React } from "react";
 import { FaUserAlt } from "react-icons/fa";
-import { ImCreditCard } from "react-icons/im";
-import { AiTwotoneCalendar, AiOutlineAppstore } from "react-icons/ai";
-import { MdPeople } from "react-icons/md";
-import { BsFillLockFill, BsLink45Deg, BsBoxArrowUpRight } from "react-icons/bs";
 import { IoIosLogOut } from "react-icons/io";
-import { MdOutlineKeyboardArrowDown, MdOutlineLiveHelp } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/Firebase";
 
 export function Navbar({ handleLog }) {
@@ -65,15 +55,20 @@ export function Navbar({ handleLog }) {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Flex marginLeft={500}>
-                  <Avatar size={"sm"} src={""} />
+                <Flex marginLeft={300} alignItems="center">
+                  <Avatar
+                    size={"sm"}
+                    src={
+                      "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
+                    }
+                  />
                   <Box marginLeft={0}>
                     {" "}
                     <Button
                       bg={"none"}
                       rightIcon={<MdOutlineKeyboardArrowDown />}
                     >
-                      Account
+                      {auth.currentUser.email}
                     </Button>{" "}
                   </Box>
                 </Flex>

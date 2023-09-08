@@ -72,13 +72,22 @@ const Calendar2 = () => {
   return (
     <div className="App">
       <div className="container">
-        <div className="eventManager"></div>
-        <div className="calendar">
+        <div
+          className="calendar"
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+          }}
+        >
           <Calendar
             localizer={localizer}
             events={events}
             startAccessor="startDate"
             endAccessor="endDate"
+            style={{
+              minWidth: "90%",
+            }}
           />
         </div>
       </div>
