@@ -83,7 +83,7 @@ import {
                 w={'100%'}
                 h={'100%'}
                 src={
-                  'https://i.ibb.co/7g7RJM8/Screenshot-14.png'
+                  ''
                 }
               />
           </Flex>

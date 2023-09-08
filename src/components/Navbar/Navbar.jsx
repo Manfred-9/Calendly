@@ -1,27 +1,16 @@
 import React, { useRef, useState } from "react";
-import { Flex, Spacer, useDisclosure } from "@chakra-ui/react";
-import { Stack, HStack, VStack, Button, Box, Image } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
+import { Flex, Spacer, useDisclosure, HStack, VStack, Button, Box, Image } from "@chakra-ui/react";
 import "./Navbar.css";
 import { auth } from "../../firebase/Firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Divider } from "@chakra-ui/react";
 import { BiMenu } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-} from "@chakra-ui/react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";

@@ -74,22 +74,7 @@ import {
                 We take the work out of connecting with others so you can accomplish more.
                 </Text>
               </Box>
-              <Stack direction={'row'} marginBottom={"20px"}>
-                <Select
-                  placeholder={'English'}
-                  width={250}
-                  bg={useColorModeValue('white', 'whiteAlpha.100')}
-                  border={"1px solid black"}
-                  _focus={{
-                    bg: 'whiteAlpha.300',
-                  }}
-                >
-                  <option value='Francis'>Francis</option>
-                  <option value='Protegue'>Protegue</option>
-                </Select>
-              </Stack>
               <Stack direction={'row'} spacing={6} marginBottom={"20px"}>
-                <Image src='https://assets-marketing-site.calendly.com/static/AppStore-15f01eefb2013206cc7e26d98fbe95fb.svg' style={{cursor:"pointer"}}/>
                 <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl1ANbjwIzvXX4YpXZT6Nt3TiRUsMlqrZ3xg&usqp=CAU' width="135px"  style={{borderRadius:"5px",cursor:"pointer"}}/>
               </Stack>
               <Stack direction={'row'} spacing={6} marginBottom={"10px"}>

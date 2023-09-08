@@ -1,3 +1,4 @@
+import React from 'react'
 import {
     Container,
     Stack,
@@ -9,13 +10,8 @@ import {
     Button,
     Image,
     Icon,
-    IconButton,
     createIcon,
     useColorModeValue,
-  } from '@chakra-ui/react';
-  import React from 'react'
-
-  import {
     Modal,
     ModalOverlay,
     ModalContent,
@@ -27,6 +23,7 @@ import {
   } from '@chakra-ui/react'
 import SignupBox from '../Auth/SignupBox';
 import { auth } from "../../firebase/Firebase";
+import scheduling1 from "../../images/scheduling1.webp";
 
   export default function Hero() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -133,7 +130,7 @@ import { auth } from "../../firebase/Firebase";
                 w={'100%'}
                 h={'100%'}
                 src={
-                  'https://i.ibb.co/C1B036C/Screenshot-1.png'
+                  scheduling1
                 }
               />
           </Flex>
