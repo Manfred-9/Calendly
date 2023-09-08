@@ -68,7 +68,7 @@ import {
             marginLeft={"30px"}>
             <Stack spacing={6} gap={10}>
               <Box textAlign={"left"} marginBottom={"10px"}>
-                <Heading>Easy</Heading>
+                <Heading>Easy, scheduling</Heading>
                 <Heading color={"blue.500"}>ahead</Heading>
                 <Text fontSize={{base:"lg",sm:"md"}} marginTop={"20px"} width={{base:"130%",sm:"70%"}}>
                 We take the work out of connecting with others so you can accomplish more.
