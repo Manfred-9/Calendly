@@ -92,6 +92,7 @@ const EventForm = () => {
       <hr />
       <FormControl border={"1px solid"} p={8}>
         <hr />
+
         <FormLabel>Event Name</FormLabel>
         <Input
           onChange={handleChange}
@@ -101,10 +102,9 @@ const EventForm = () => {
         />
 
         <FormLabel>Time</FormLabel>
-
         <DatePicker
           showTimeSelect
-          timeIntervals={30}
+          timeIntervals={15}
           dateFormat="MMMM d, yyyy h:mm aa"
           className="time-input"
           placeholderText="Start Date"
@@ -114,26 +114,26 @@ const EventForm = () => {
         <DatePicker
           className="time-input"
           showTimeSelect
-          timeIntervals={30}
+          timeIntervals={15}
           dateFormat="MMMM d, yyyy h:mm aa"
           placeholderText="End Date"
           selected={newEvent.endDate}
           onChange={(endDate) => setNewEvent({ ...newEvent, endDate })}
         />
+
+        <FormLabel>Meeting length</FormLabel>
         <input
           className="time-input"
           style={{ marginBottom: 0 }}
-          type={"text"}
-          placeholder="Long time"
+          type="number"
+          placeholder="E.g.,15min, 30min, 45min"
           value={newEvent.longTime}
           onChange={(e) =>
             setNewEvent({ ...newEvent, longTime: e.target.value })
           }
         />
-
         <FormLabel>Location</FormLabel>
         <Input onChange={handleChange} type="text" isRequired name="location" />
-
         <FormLabel>Description/Instructions</FormLabel>
         <Textarea
           onChange={handleChange}
@@ -191,7 +191,6 @@ const EventForm = () => {
         <hr />
 
         <Flex gap={4} my={4} justifyContent={"right"}>
-          <Button rounded={"full"}>Cancel</Button>
           <Button
             color={"white"}
             rounded={"full"}

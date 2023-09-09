@@ -36,11 +36,6 @@ export function Navbar({ handleLog }) {
         >
           <Flex alignItems={"center"}>
             <HStack as={"nav"} marginLeft={"10rem"} spacing={4}>
-              <Link to={"/userevent/userhome"}>
-                <Button bg={"none"} fontWeight={"semibold"}>
-                  Home
-                </Button>
-              </Link>
               <Link to={"/userevent/userhome/calendar"}>
                 <Button bg={"none"} fontWeight={"semibold"}>
                   Calendar

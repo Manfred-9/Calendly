@@ -9,7 +9,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
-
 import { FormLabel } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -111,13 +110,13 @@ export default function EventCard({ e }) {
           </Text>
 
           <Text fontWeight={400} color={"gray.500"} mb={4}>
-            Long metting time : {e.longTime}p
+          Meeting length : {e.longTime} minutes
           </Text>
 
           <FormLabel>Choose time to meeting</FormLabel>
           <DatePicker
             showTimeSelect
-            timeIntervals={30}
+            timeIntervals={15}
             dateFormat="MMMM d, yyyy h:mm aa"
             className="time-input"
             placeholderText="Start time"
@@ -127,7 +126,7 @@ export default function EventCard({ e }) {
           <DatePicker
             className="time-input"
             showTimeSelect
-            timeIntervals={30}
+            timeIntervals={15}
             dateFormat="MMMM d, yyyy h:mm aa"
             placeholderText="End time"
             selected={newEvent.endDate}

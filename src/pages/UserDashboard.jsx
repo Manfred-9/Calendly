@@ -1,15 +1,13 @@
-import React from 'react'
-import {Navbar }from '../components/User Dashboard/UserNavbar'
-import UserNavRoutes from './UserNavRoutes'
+import React from "react";
+import { Navbar } from "../components/User Dashboard/UserNavbar";
+import UserNavRoutes from "./UserNavRoutes";
 const UserDashboard = () => {
   return (
     <div>
-        <Navbar/>
-        {/* <Dashboard/> */}
-        {/* <UserRoutes/> */}
-    <UserNavRoutes/>
+      <Navbar />
+      <UserNavRoutes />
     </div>
-  )
-}
+  );
+};
 
-export default UserDashboard
+export default UserDashboard;
