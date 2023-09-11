@@ -69,6 +69,8 @@ const Calendar2 = () => {
     })();
   }, []);
 
+  console.log(events);
+
   return (
     <div className="App">
       <div className="container">

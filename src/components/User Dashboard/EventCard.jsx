@@ -31,7 +31,7 @@ export default function EventCard({ e }) {
     }
     const exist = e.schedules.find((s) => s.email === auth?.currentUser?.email);
     const ref = doc(db, "events", e.id);
-    console.log(exist);
+    // console.log("exist", exist);
     if (!exist) {
       await setDoc(ref, {
         ...e,
@@ -110,7 +110,7 @@ export default function EventCard({ e }) {
           </Text>
 
           <Text fontWeight={400} color={"gray.500"} mb={4}>
-          Meeting length : {e.longTime} minutes
+            Meeting length : {e.longTime} minutes
           </Text>
 
           <FormLabel>Choose time to meeting</FormLabel>

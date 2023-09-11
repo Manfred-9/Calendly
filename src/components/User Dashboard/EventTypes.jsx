@@ -25,7 +25,7 @@ import { auth, db } from "../../firebase/Firebase.js";
 const EventTypes = () => {
   const [events, setEvents] = useState([]);
   const toast = useToast();
-  console.log(events);
+  // console.log(events);
 
   useEffect(() => {
     (async () => {
@@ -37,8 +37,7 @@ const EventTypes = () => {
           ...doc.data(),
         });
       });
-
-      setEvents(data);
+      setEvents(data.filter((e) => e?.users?.includes(auth.currentUser.email)));
     })();
   }, []);
 
