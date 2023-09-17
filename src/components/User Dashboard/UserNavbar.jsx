@@ -69,7 +69,11 @@ export function Navbar({ handleLog }) {
                 </Flex>
               </MenuButton>
               <MenuList marginLeft={500}>
-                <MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/profile");
+                  }}
+                >
                   {" "}
                   <Box marginRight={1}>
                     {" "}

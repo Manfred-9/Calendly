@@ -28,7 +28,7 @@ function App() {
         <Navbar handleLog={handleLog} />
       )}
       {user ? <Dashboard /> : null}
-      <MainRoutes />
+      <MainRoutes user={user} />
 
       {!user ? <Footer /> : null}
     </div>

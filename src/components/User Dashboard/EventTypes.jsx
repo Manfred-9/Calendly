@@ -47,7 +47,7 @@ const EventTypes = () => {
         <Flex gap={8}>
           <Avatar />
           <Heading as={"h2"} fontWeight={"normal"}>
-            Username
+            {auth.currentUser?.displayName}
           </Heading>
         </Flex>
         <Flex>
