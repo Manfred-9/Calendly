@@ -169,7 +169,6 @@ const Calendar2 = () => {
             startAccessor="startDate"
             endAccessor="endDate"
             onSelectEvent={async (event) => {
-              console.log(event);
               const ownUserD = await fetch(
                 `http://localhost:4000/users/${event.ownEmail}`
               );
@@ -180,8 +179,17 @@ const Calendar2 = () => {
               );
               const user = await userD.json();
 
-              lastedVal.current = event?.note;
-              setValue(event?.note);
+              const uid = event?.uid;
+              const eventRef = doc(db, "events", uid);
+
+              const eventSnap = await getDoc(eventRef);
+              console.log(eventSnap.data());
+              const eventNotes = eventSnap?.data()?.notes || [];
+              const existNote = eventNotes?.find(
+                (n) => n.email === auth.currentUser.email
+              );
+              lastedVal.current = existNote?.note || "";
+              setValue(existNote?.note || "");
               setEventDetails({
                 eventName: event.eventName,
                 location: event.location,
