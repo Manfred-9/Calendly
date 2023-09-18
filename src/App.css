@@ -1,13 +1,17 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .time-input {
-    width: 100%;
-    border: 1px black solid;
-    border-radius: 5px;
-    padding: 8px 8px;
-    margin-bottom: 20px;
+  width: 100%;
+  border: 1px black solid;
+  border-radius: 5px;
+  padding: 8px 8px;
+  margin-bottom: 20px;
+}
+
+.ql-editor {
+  min-height: 200px !important;
 }

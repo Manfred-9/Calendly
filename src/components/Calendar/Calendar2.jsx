@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
+import "date-fns/locale/en-US";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
+import React, { useEffect, useRef, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-quill/dist/quill.snow.css";
 import "./Calendar2.css";
-import "date-fns/locale/en-US";
 
 const locales = {
   "en-US": "date-fns/locale/en-US",
@@ -22,19 +22,10 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: "abc",
-    startDate: new Date("2023-09-7"),
-    endDate: new Date("2023-09-8"),
-  },
-];
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
-import { collection, getDocs } from "firebase/firestore";
-
-import { auth, db } from "../../firebase/Firebase.js";
-import toDateTime from "../../utils/date";
 import {
+  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -43,16 +34,81 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import ReactQuill from "react-quill";
+import { auth, db } from "../../firebase/Firebase.js";
+import { formats, modules } from "../../utils/Editor";
+import toDateTime from "../../utils/date";
 
 const Calendar2 = () => {
   const [events, setEvents] = useState([]);
   const [eventDetails, setEventDetails] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const [value, setValue] = useState("");
+  const lastedVal = useRef("");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+
+  const handleSaveNote = async () => {
+    setIsEdit(false);
+    const uid = eventDetails?.uid;
+    const eventRef = doc(db, "events", uid);
+    const eventSnap = await getDoc(eventRef);
+    if (!eventSnap.exists()) {
+      return;
+    }
+    const eventNotes = eventSnap?.data()?.notes || [];
+    const existNote = eventNotes?.find(
+      (n) => n.email === auth.currentUser.email
+    );
+
+    if (existNote) {
+      await setDoc(
+        eventRef,
+        {
+          notes: eventNotes?.map((n) => {
+            if (n.email === auth.currentUser.email) {
+              n.note = value;
+            }
+            return n;
+          }),
+        },
+        { merge: true }
+      );
+    } else {
+      await setDoc(
+        eventRef,
+        {
+          notes: [
+            ...eventNotes,
+            {
+              email: auth.currentUser.email,
+              note: value,
+            },
+          ],
+        },
+        { merge: true }
+      );
+    }
+    lastedVal.current = value;
+    toast({
+      title: "Save note successfully.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top-center",
+    });
+  };
+
+  const handleCloseNote = () => {
+    setValue(lastedVal.current);
+    setIsEdit(false);
+  };
 
   useEffect(() => {
     (async () => {
@@ -66,7 +122,10 @@ const Calendar2 = () => {
       });
 
       const dataFilter = data.filter(
-        (d) => d?.email === auth.currentUser.email && d?.schedules?.length > 0
+        (d) =>
+          (d?.email === auth.currentUser.email && d?.schedules?.length > 0) ||
+          (d?.schedules?.length > 0 &&
+            d?.schedules?.some((s) => s.email === auth.currentUser.email))
       );
 
       const dataEvents = [];
@@ -82,6 +141,10 @@ const Calendar2 = () => {
             location: d?.location,
             longTime: d?.longTime,
             ownEmail: d?.email,
+            uid: d?.id,
+            note:
+              d?.notes?.find((n) => n.email === auth.currentUser.email)?.note ||
+              "",
           });
         });
       }
@@ -117,6 +180,8 @@ const Calendar2 = () => {
               );
               const user = await userD.json();
 
+              lastedVal.current = event?.note;
+              setValue(event?.note);
               setEventDetails({
                 eventName: event.eventName,
                 location: event.location,
@@ -126,6 +191,7 @@ const Calendar2 = () => {
                 note: event.desc,
                 ownName: ownUser.displayName,
                 username: user.displayName,
+                uid: event.uid,
               });
 
               onOpen();
@@ -134,12 +200,13 @@ const Calendar2 = () => {
               minWidth: "90%",
             }}
           />
+
           <Modal
             initialFocusRef={initialRef}
             finalFocusRef={finalRef}
             isOpen={isOpen}
             isCentered
-            size={"lg"}
+            size={"4xl"}
             onClose={onClose}
           >
             <ModalOverlay />
@@ -217,8 +284,8 @@ const Calendar2 = () => {
                     {eventDetails?.longTime} mimutes
                   </span>
                 </Text>
-                <Text fontSize="lg" mb={1}>
-                  Note :{" "}
+                <Text fontSize="lg" mb={3}>
+                  Description :{" "}
                   <span
                     style={{
                       fontWeight: "500",
@@ -227,6 +294,58 @@ const Calendar2 = () => {
                     {eventDetails?.note}
                   </span>
                 </Text>
+                <Text fontSize="lg" mb={3}>
+                  <span
+                    style={{
+                      fontWeight: "500",
+                      color: "blue  ",
+                    }}
+                  >
+                    YOUR NOTE
+                  </span>
+                </Text>
+                <ReactQuill
+                  style={{
+                    background: isEdit ? "#fff" : "#f1f1f1",
+                    pointerEvents: isEdit ? "unset" : "none",
+                  }}
+                  onChange={(v) => setValue(v)}
+                  value={value}
+                  theme="snow"
+                  modules={modules}
+                  formats={formats}
+                ></ReactQuill>
+                <div
+                  style={{
+                    marginTop: 20,
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  {!isEdit && (
+                    <Button
+                      onClick={() => setIsEdit(true)}
+                      colorScheme="gray"
+                      mr={2}
+                    >
+                      Edit
+                    </Button>
+                  )}
+                  {isEdit && (
+                    <>
+                      <Button
+                        onClick={handleCloseNote}
+                        colorScheme="gray"
+                        mr={2}
+                      >
+                        Close
+                      </Button>
+                      <Button onClick={handleSaveNote} colorScheme="blue">
+                        Save
+                      </Button>
+                    </>
+                  )}
+                </div>
               </ModalBody>
             </ModalContent>
           </Modal>
