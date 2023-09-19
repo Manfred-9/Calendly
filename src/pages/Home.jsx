@@ -1,9 +1,9 @@
 import React from "react";
-import Hero from "../components/Home/Hero";
+import Homepage from "../components/Home/Homepage";
 export const Home = () => {
   return (
     <>
-      <Hero />
+      <Homepage />
     </>
   );
 };

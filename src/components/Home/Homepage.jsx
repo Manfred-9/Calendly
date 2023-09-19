@@ -25,7 +25,7 @@ import SignupBox from '../Auth/SignupBox';
 import { auth } from "../../firebase/Firebase";
 import scheduling1 from "../../images/scheduling1.webp";
 
-  export default function Hero() {
+  export default function Home() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const finalRef = React.useRef(null);
     const loginWithGoogle = ()=>{
@@ -124,7 +124,7 @@ import scheduling1 from "../../images/scheduling1.webp";
               color={useColorModeValue('red.50', 'red.400')}
             />
               <Image
-                alt={'Hero Image'}
+                alt={'Home Image'}
                 fit={'cover'}
                 align={'center'}
                 w={'100%'}

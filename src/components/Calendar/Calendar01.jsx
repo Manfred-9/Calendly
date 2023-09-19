@@ -8,7 +8,7 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-quill/dist/quill.snow.css";
-import "./Calendar2.css";
+import "./Calendar01.css";
 
 const locales = {
   "en-US": "date-fns/locale/en-US",
@@ -41,7 +41,7 @@ import { auth, db } from "../../firebase/Firebase.js";
 import { formats, modules } from "../../utils/Editor";
 import toDateTime from "../../utils/date";
 
-const Calendar2 = () => {
+const Calendar01 = () => {
   const [events, setEvents] = useState([]);
   const [eventDetails, setEventDetails] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
@@ -346,7 +346,7 @@ const Calendar2 = () => {
                         colorScheme="gray"
                         mr={2}
                       >
-                        Close
+                        Cancel
                       </Button>
                       <Button onClick={handleSaveNote} colorScheme="blue">
                         Save
@@ -363,4 +363,4 @@ const Calendar2 = () => {
   );
 };
 
-export default Calendar2;
+export default Calendar01;
