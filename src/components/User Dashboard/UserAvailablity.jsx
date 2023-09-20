@@ -1,8 +1,8 @@
 import React from 'react'
-import Calendar2 from '../Calendar/Calendar2'
+import Calendar01 from '../Calendar/Calendar01'
 const Availablity = () => {
   return (
-    <Calendar2/>
+    <Calendar01/>
   )
 }
 

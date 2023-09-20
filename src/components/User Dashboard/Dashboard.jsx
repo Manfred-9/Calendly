@@ -49,7 +49,7 @@ export function Dashboard() {
                   mr={4}
                   borderRadius={8}
                 >
-                  Your event
+                  My event
                 </Button>
               </Link>
             </HStack>

@@ -1,5 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Flex, Spacer, useDisclosure, HStack, VStack, Button, Box, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Spacer,
+  useDisclosure,
+  HStack,
+  VStack,
+  Button,
+  Box,
+  Image,
+} from "@chakra-ui/react";
 import "./Navbar.css";
 import { auth } from "../../firebase/Firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -53,25 +62,14 @@ export const Navbar = ({ handleLog }) => {
   window.addEventListener("scroll", handleScroll);
   return (
     <>
-      <Drawer
-        isOpen={opend}
-        placement="right"
-        onClose={!opend}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton onClick={() => setOpend(false)} />
-          <DrawerHeader>Wellcome to Calendly</DrawerHeader>
-        </DrawerContent>
-      </Drawer>
+
       <Modal isOpen={isOpen} border={"1px solid red"}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader textAlign={"center"}>Get started today</ModalHeader>
           <ModalCloseButton onClick={onClose} />
           <ModalBody>
-            <SignupBox loginWithGoogle={loginWithGoogle} log={"Sign up"} />
+            <SignupBox loginWithGoogle={loginWithGoogle} log={"Login"} />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -88,46 +86,17 @@ export const Navbar = ({ handleLog }) => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Box
-          cursor="pointer"
-          display={{ base: "none", sm: "block", md: "block" }}
-        >
-          <Link to="/">
-            <Image src="" h="40px" w="auto" alt="" />
-          </Link>
-        </Box>
-        <Box display={{ base: "block", sm: "none" }}>
-          <Link to="/">
-            <Image src="" h={"40px"} w={"40px"} alt="logo" />
-          </Link>
-        </Box>
         <Spacer />
-        <HStack
-          display={{ base: "none", lg: "flex" }}
-          justifyContent="center"
-          spacing={10}
-          w={{ md: "85%", lg: "84%" }}
-        ></HStack>
-        <Spacer />
-        <Box>
-          <Button
-            onClick={onOpen}
-            colorScheme={"messenger"}
-            variant="solid"
-            w="131px"
-            height="51px"
-            borderRadius="39px"
-          >
-            Login
-          </Button>
-        </Box>
-        <Box
-          fontSize={"2rem"}
-          display={{ base: "block", lg: "none" }}
-          ml={"10px"}
+        <Button
+          onClick={onOpen}
+          colorScheme={"messenger"}
+          variant="solid"
+          w="131px"
+          height="51px"
+          borderRadius="39px"
         >
-          <BiMenu ref={btnRef} onClick={() => setOpend(true)} />
-        </Box>
+          Login
+        </Button>
       </Flex>
     </>
   );
