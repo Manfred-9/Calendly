@@ -131,21 +131,41 @@ const Calendar2 = () => {
       const dataEvents = [];
       for (let d of dataFilter) {
         d?.schedules.forEach((s) => {
-          dataEvents.push({
-            eventName: d.eventName,
-            ...s,
-            startDate: toDateTime(s.startDate.seconds),
-            endDate: toDateTime(s.endDate.seconds),
-            title: d.eventName,
-            desc: d?.desc,
-            location: d?.location,
-            longTime: d?.longTime,
-            ownEmail: d?.email,
-            uid: d?.id,
-            note:
-              d?.notes?.find((n) => n.email === auth.currentUser.email)?.note ||
-              "",
-          });
+          if (d?.email === auth.currentUser.email) {
+            dataEvents.push({
+              eventName: d.eventName,
+              ...s,
+              startDate: toDateTime(s.startDate.seconds),
+              endDate: toDateTime(s.endDate.seconds),
+              title: d.eventName,
+              desc: d?.desc,
+              location: d?.location,
+              longTime: d?.longTime,
+              ownEmail: d?.email,
+              uid: d?.id,
+              note:
+                d?.notes?.find((n) => n.email === auth.currentUser.email)
+                  ?.note || "",
+            });
+          } else {
+            if (s?.email === auth.currentUser.email) {
+              dataEvents.push({
+                eventName: d.eventName,
+                ...s,
+                startDate: toDateTime(s.startDate.seconds),
+                endDate: toDateTime(s.endDate.seconds),
+                title: d.eventName,
+                desc: d?.desc,
+                location: d?.location,
+                longTime: d?.longTime,
+                ownEmail: d?.email,
+                uid: d?.id,
+                note:
+                  d?.notes?.find((n) => n.email === auth.currentUser.email)
+                    ?.note || "",
+              });
+            }
+          }
         });
       }
       setEvents(dataEvents);
