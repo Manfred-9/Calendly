@@ -2,23 +2,24 @@ import {
   Box,
   Button,
   Flex,
-  Heading,
-  Switch,
-  Text,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
-import { collection, addDoc } from "firebase/firestore";
-import React, { useState } from "react";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../../firebase/Firebase";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import toDateTime from "../../utils/date";
 
-const EventForm = () => {
+const EventUpdate = () => {
+  const { id } = useParams();
+  const toast = useToast();
   const [values, setValues] = useState({
     eventName: "",
     location: "",
@@ -36,6 +37,8 @@ const EventForm = () => {
     endDate: "",
     longTime: "",
   });
+
+  // console.log(newEvent.longTime);
 
   const navigate = useNavigate();
 
@@ -71,7 +74,7 @@ const EventForm = () => {
     });
   };
 
-  const handleAddEvent = async () => {
+  const handleUpdateEvent = async () => {
     const data = {
       ...values,
       ...newEvent,
@@ -79,14 +82,57 @@ const EventForm = () => {
       schedules: [],
       email: auth?.currentUser.email,
     };
-    await addDoc(collection(db, "events"), data);
+    await setDoc(doc(db, "events", id), data, {
+      merge: true,
+    });
+    toast({
+      title: "Update successfully.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top-center",
+    });
     navigate("/userevent/userhome/created-events");
   };
+
+  useEffect(() => {
+    (async () => {
+      const docRef = doc(db, "events", id);
+      const docSnap = await getDoc(docRef);
+      const {
+        endDate,
+        startDate,
+        location,
+        schedules,
+        email,
+        desc,
+        users,
+        longTime,
+        eventName,
+      } = docSnap.data();
+
+      setValues({
+        eventName,
+        desc,
+        users: users?.map((m, idx) => ({
+          name: idx + 1,
+          value: m,
+        })),
+        location,
+      });
+
+      setNewEvent({
+        longTime,
+        startDate: toDateTime(startDate.seconds),
+        endDate: toDateTime(endDate.seconds),
+      });
+    })();
+  }, []);
 
   return (
     <Box mx={"25rem"} p={4}>
       <Flex justifyContent={"space-between"} my={8}>
-        <Heading fontWeight={"normal"}>New Event</Heading>
+        <Heading fontWeight={"normal"}>Update Event</Heading>
         {<Flex gap={2}></Flex>}
       </Flex>
       <hr />
@@ -98,6 +144,7 @@ const EventForm = () => {
           onChange={handleChange}
           type="text"
           isRequired
+          value={values.eventName}
           name="eventName"
         />
 
@@ -128,17 +175,25 @@ const EventForm = () => {
           type="number"
           placeholder="E.g.,15min, 30min, 45min"
           value={newEvent.longTime}
-          onChange={(e) =>
-            setNewEvent({ ...newEvent, longTime: e.target.value })
-          }
+          onChange={(e) => {
+            // console.log(e.target.value);
+            setNewEvent({ ...newEvent, longTime: e.target.value });
+          }}
         />
         <FormLabel>Location</FormLabel>
-        <Input onChange={handleChange} type="text" isRequired name="location" />
+        <Input
+          onChange={handleChange}
+          type="text"
+          value={values.location}
+          isRequired
+          name="location"
+        />
         <FormLabel>Description/Instructions</FormLabel>
         <Textarea
           onChange={handleChange}
           type="textBox"
           isRequired
+          value={values.desc}
           minHeight={40}
           name="desc"
         />
@@ -148,6 +203,7 @@ const EventForm = () => {
             <Input
               key={v.name}
               type="text"
+              value={v.value}
               onChange={(e) => handleChangeUsers(e, v.name)}
               style={{
                 marginBottom: 10,
@@ -190,14 +246,14 @@ const EventForm = () => {
         </div>
         <hr />
 
-        <Flex gap={4} my={4} justifyContent={"right"}>
+        <Flex gap={4} my={4} justifyContent={"center"}>
           <Button
             color={"white"}
-            rounded={"full"}
-            bg={"blue.500"}
-            onClick={handleAddEvent}
+            rounded={"xl"}
+            bg={"blue.600"}
+            onClick={handleUpdateEvent}
           >
-            Save
+            Update
           </Button>
         </Flex>
       </FormControl>
@@ -205,4 +261,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+export default EventUpdate;

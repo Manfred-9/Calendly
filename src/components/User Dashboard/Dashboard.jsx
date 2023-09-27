@@ -1,24 +1,13 @@
-import { ReactNode } from "react";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Flex,
-  Avatar,
   HStack,
   VStack,
-  IconButton,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
   useColorModeValue,
-  Stack,
-  Heading,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
 export function Dashboard() {
   return (
@@ -40,6 +29,22 @@ export function Dashboard() {
         >
           <VStack spacing={8}>
             <HStack as={"nav"} spacing={4} justifyContent={"space-between"}>
+              <Link to={"/userevent/userhome/created-events"}>
+                <Button
+                  variant={"solid"}
+                  bg={"#3372cc"}
+                  color={"white"}
+                  size={"lg"}
+                  mr={4}
+                  borderRadius={8}
+                >
+                  My created events
+                </Button>
+              </Link>
+            </HStack>
+          </VStack>
+          <VStack spacing={8}>
+            <HStack as={"nav"} spacing={4} justifyContent={"space-between"}>
               <Link to={"/userevent/userhome/yourevent"}>
                 <Button
                   variant={"solid"}
@@ -49,7 +54,7 @@ export function Dashboard() {
                   mr={4}
                   borderRadius={8}
                 >
-                  My event
+                  My events
                 </Button>
               </Link>
             </HStack>

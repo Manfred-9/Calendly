@@ -6,6 +6,8 @@ import { Home as UserHome } from "../components/User Dashboard/UserHome";
 import EventTypes from "../components/User Dashboard/EventTypes";
 import EventForm from "../components/User Dashboard/EventForm";
 import Profile from "../components/Profile";
+import CreatedEvent from "../components/User Dashboard/CreatedEvent";
+import EventUpdate from "../components/User Dashboard/EventUpdate";
 export const MainRoutes = ({ user }) => {
   return (
     <div>
@@ -13,7 +15,15 @@ export const MainRoutes = ({ user }) => {
         <Route path="/" element={<Home />} />
         <Route path="/userevent/userhome" element={<UserHome />} />
         <Route path="/userevent/userhome/yourevent" element={<EventTypes />} />
+        <Route
+          path="/userevent/userhome/created-events"
+          element={<CreatedEvent />}
+        />
         <Route path="/userevent/userhome/eventforms" element={<EventForm />} />
+        <Route
+          path="/userevent/userhome/update-event/:id"
+          element={<EventUpdate />}
+        />
         <Route path="/userevent/userhome/calendar" element={<Calendar01 />} />
         {user && <Route path="/profile" element={<Profile />} />}
       </Routes>
