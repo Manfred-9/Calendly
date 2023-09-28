@@ -84,7 +84,7 @@ export default function EventCard({ e }) {
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"xl"}
         rounded={"xl"}
-        borderTop={"0.5rem solid #8046f3"}
+        borderTop={"0.5rem solid #0e18cc"}
         p={4}
         textAlign={"left"}
       >

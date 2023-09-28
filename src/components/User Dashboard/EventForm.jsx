@@ -142,7 +142,7 @@ const EventForm = () => {
           minHeight={40}
           name="desc"
         />
-        <FormLabel>Users email</FormLabel>
+        <FormLabel>Members email</FormLabel>
         {values.users.map((v) => {
           return (
             <Input

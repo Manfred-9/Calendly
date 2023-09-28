@@ -4,18 +4,8 @@ import {
   Flex,
   Avatar,
   Heading,
-  Button,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Grid,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { AiOutlineSearch } from "react-icons/ai";
-import { RiSettings2Fill } from "react-icons/ri";
-import { BiLink, BiCodeAlt } from "react-icons/bi";
 import EventCard from "./EventCard";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
@@ -49,18 +39,6 @@ const EventTypes = () => {
           <Heading as={"h2"} fontWeight={"normal"}>
             {auth.currentUser?.displayName}
           </Heading>
-        </Flex>
-        <Flex>
-          <Link to={"/userevent/userhome/eventforms"}>
-            <Button
-              color={"blue.500"}
-              rounded={"full"}
-              borderColor={"blue.500"}
-              variant={"outline"}
-            >
-              + New Event
-            </Button>
-          </Link>
         </Flex>
       </Flex>
       <hr />

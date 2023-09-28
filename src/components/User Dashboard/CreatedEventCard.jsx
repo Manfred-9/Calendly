@@ -36,11 +36,11 @@ export default function CreatedEventCard({ e, handleLoadData }) {
     <Center py={6}>
       <Box
         maxW={"350px"}
-        // w={"300px"}
+        w={"300px"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"xl"}
         rounded={"xl"}
-        borderTop={"0.5rem solid #8046f3"}
+        borderTop={"0.5rem solid #0e18cc"}
         p={4}
         textAlign={"left"}
       >
@@ -66,7 +66,7 @@ export default function CreatedEventCard({ e, handleLoadData }) {
             Meeting length : {e.longTime} minutes
           </Text>
           <Text fontWeight={400} color={"gray.500"} mb={1}>
-            Parners :
+            Members :
           </Text>
           {e.users?.map((z) => (
             <Text fontWeight={500} color={"gray.500"} mb={1} pl={4} key={z}>

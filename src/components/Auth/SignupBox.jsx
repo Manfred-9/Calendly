@@ -29,7 +29,7 @@ import {
           my={1}>
           <FormControl id="email">
             <Input
-              placeholder="your-email@example.com"
+              placeholder="youremail@gmail.com"
               _placeholder={{ color: 'gray.500' }}
               type="email"
             />
@@ -41,7 +41,7 @@ import {
               _hover={{
                 bg: 'blue.500',
               }}>
-             Get started
+             Continue
             </Button>
             <Button
               onClick={()=>loginWithGoogle()}

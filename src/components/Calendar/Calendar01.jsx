@@ -97,7 +97,7 @@ const Calendar01 = () => {
     }
     lastedVal.current = value;
     toast({
-      title: "Save note successfully.",
+      title: "Save successfully.",
       status: "success",
       duration: 3000,
       isClosable: true,
@@ -303,7 +303,7 @@ const Calendar01 = () => {
                   </span>
                 </Text>
                 <Text fontSize="lg" mb={1}>
-                  Long time :{" "}
+                  Meeting length :{" "}
                   <span
                     style={{
                       fontWeight: "500",

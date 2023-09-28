@@ -45,7 +45,6 @@ import scheduling1 from "../../images/scheduling1.webp";
        <Modal isOpen={isOpen} border={"1px solid red"}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign={'center'}>Get started today</ModalHeader>
           <ModalCloseButton onClick={onClose}/>
           <ModalBody>
            <SignupBox loginWithGoogle={loginWithGoogle} log={"Login"}/>
