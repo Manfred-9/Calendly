@@ -53,7 +53,7 @@ export default function CreatedEventCard({ e, handleLoadData }) {
             Location : {e.location}
           </Text>
           <Text fontWeight={400} color={"gray.500"} mb={4}>
-            Description : {e.location}
+            Description : {e.desc}
           </Text>
           <Text fontWeight={400} color={"gray.500"} mb={4}>
             Start date : {toDateTime(e.startDate.seconds).toLocaleString()}

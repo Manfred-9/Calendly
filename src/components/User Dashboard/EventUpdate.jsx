@@ -103,6 +103,7 @@ const EventUpdate = () => {
         endDate,
         startDate,
         location,
+        maxParticipants,
         schedules,
         email,
         desc,
@@ -114,6 +115,7 @@ const EventUpdate = () => {
       setValues({
         eventName,
         desc,
+        maxParticipants,
         users: users?.map((m, idx) => ({
           name: idx + 1,
           value: m,
@@ -197,7 +199,18 @@ const EventUpdate = () => {
           minHeight={40}
           name="desc"
         />
-        <FormLabel>Users email</FormLabel>
+        <FormLabel>Max Participants</FormLabel>
+        <Input
+          type="number"
+          isRequired
+          name="maxParticipants"
+          value={values.maxParticipants}
+          onChange={(e) =>
+            setNewEvent({ ...newEvent, maxParticipants: e.target.value })
+          }
+        />
+
+        <FormLabel>Members email</FormLabel>
         {values.users.map((v) => {
           return (
             <Input

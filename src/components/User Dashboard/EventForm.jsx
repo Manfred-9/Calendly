@@ -138,10 +138,18 @@ const EventForm = () => {
         <Textarea
           onChange={handleChange}
           type="textBox"
-          isRequired
           minHeight={40}
           name="desc"
         />
+        <FormLabel>Max Participants</FormLabel>
+<Input
+  type="number"
+  isRequired
+  name="maxParticipants"
+  value={newEvent.maxParticipants}
+  onChange={(e) => setNewEvent({ ...newEvent, maxParticipants: e.target.value })}
+/>
+
         <FormLabel>Members email</FormLabel>
         {values.users.map((v) => {
           return (
