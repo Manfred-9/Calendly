@@ -37,15 +37,18 @@ export default function CreatedEventCard({ e, handleLoadData }) {
       <Box
         maxW={"350px"}
         w={"300px"}
+        height={"100%"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"xl"}
         rounded={"xl"}
         borderTop={"0.5rem solid #0e18cc"}
         p={4}
+        flexDirection={"column"}
+        display={"flex"}
         textAlign={"left"}
       >
         <Flex direction={"row"} justifyContent={"space-between"}></Flex>
-        <Box mb={5}>
+        <Box mb={5} flex={1}>
           <Text fontWeight={400} color={"gray.500"} mb={4} mt={0}>
             Event name : {e.eventName}
           </Text>

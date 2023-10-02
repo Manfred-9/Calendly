@@ -37,7 +37,7 @@ const CreatedEvent = () => {
         templateColumns="repeat(2, 1fr)"
         gap={4}
         justifyItems={"flex-start"}
-        alignItems={"flex-start"}
+        alignItems={"stretch"}
       >
         {events.map((e) => (
           <CreatedEventCard key={e.id} e={e} handleLoadData={handleLoadData} />
