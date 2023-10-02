@@ -62,35 +62,56 @@ const Calendar01 = () => {
     if (!eventSnap.exists()) {
       return;
     }
+    const isOwner = eventDetails.ownEmail === auth.currentUser.email;
     const eventNotes = eventSnap?.data()?.notes || [];
-    const existNote = eventNotes?.find(
-      (n) => n.email === auth.currentUser.email
-    );
+    let existNote = null;
 
+    if (isOwner) {
+      existNote = eventNotes?.find(
+        (n) =>
+          n.email === auth.currentUser.email &&
+          n.partnerEmail === eventDetails.partnerEmail
+      );
+    } else {
+      existNote = eventNotes?.find((n) => n.email === auth.currentUser.email);
+    }
+
+    // return;
     if (existNote) {
       await setDoc(
         eventRef,
         {
           notes: eventNotes?.map((n) => {
-            if (n.email === auth.currentUser.email) {
-              n.note = value;
+            if (isOwner) {
+              if (
+                n.email === auth.currentUser.email &&
+                n.partnerEmail === eventDetails.partnerEmail
+              ) {
+                n.note = value;
+              }
+            } else {
+              if (n.email === auth.currentUser.email) {
+                n.note = value;
+              }
             }
+
             return n;
           }),
         },
         { merge: true }
       );
     } else {
+      const data = {
+        email: auth.currentUser.email,
+        note: value,
+      };
+      if (isOwner) {
+        data.partnerEmail = eventDetails.partnerEmail;
+      }
       await setDoc(
         eventRef,
         {
-          notes: [
-            ...eventNotes,
-            {
-              email: auth.currentUser.email,
-              note: value,
-            },
-          ],
+          notes: [...eventNotes, data],
         },
         { merge: true }
       );
@@ -204,11 +225,25 @@ const Calendar01 = () => {
 
               const eventSnap = await getDoc(eventRef);
               console.log(eventSnap.data());
+
+              const isOwner = event.ownEmail === auth.currentUser.email;
               const eventNotes = eventSnap?.data()?.notes || [];
-              const existNote = eventNotes?.find(
-                (n) => n.email === auth.currentUser.email
-              );
+              let existNote = null;
+
+              if (isOwner) {
+                existNote = eventNotes?.find(
+                  (n) =>
+                    n.email === auth.currentUser.email &&
+                    n.partnerEmail === event.email
+                );
+              } else {
+                existNote = eventNotes?.find(
+                  (n) => n.email === auth.currentUser.email
+                );
+              }
+
               lastedVal.current = existNote?.note || "";
+
               setValue(existNote?.note || "");
               setEventDetails({
                 eventName: event.eventName,
@@ -220,6 +255,8 @@ const Calendar01 = () => {
                 ownName: ownUser.displayName,
                 username: user.displayName,
                 uid: event.uid,
+                ownEmail: event.ownEmail,
+                partnerEmail: event.email,
               });
 
               onOpen();
