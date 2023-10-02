@@ -33,7 +33,12 @@ const CreatedEvent = () => {
         </Flex>
       </Flex>
       <hr />
-      <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+      <Grid
+        templateColumns="repeat(2, 1fr)"
+        gap={4}
+        justifyItems={"flex-start"}
+        alignItems={"flex-start"}
+      >
         {events.map((e) => (
           <CreatedEventCard key={e.id} e={e} handleLoadData={handleLoadData} />
         ))}
